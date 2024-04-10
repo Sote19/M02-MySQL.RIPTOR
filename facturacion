@@ -13,7 +13,7 @@ for i in range(200):
     fecha = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Fecha actual
     impuestos = round(random.uniform(0, 0.3), 2)  # Impuestos entre 0% y 30%
     precio_total = round(random.uniform(10, 500), 2)  # Precio total aleatorio entre 10 y 1000
-    id_venta = random.randint(1, 325)  # Asumiendo que tienes 5000 ventas en tu tabla de ventas
+    id_venta = random.randint(227, 325)  # Asumiendo que tienes 5000 ventas en tu tabla de ventas
     
     # Agregar los valores al INSERT
     insert += f"('{dni}', '{metodo_pago}', '{direccion}', {empresa}, '{fecha}', {impuestos}, {precio_total}, {id_venta}),\n"
