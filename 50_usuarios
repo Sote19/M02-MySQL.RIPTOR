@@ -13,7 +13,7 @@ def valor_aleatorio(lista):
 insert = "INSERT INTO usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, direccion_usu, telf_usu, correo_usu, fechanac_usu, estilo_usu, contraseña_usu, ocupacion_usu) VALUES\n"
 contador = 1
 
-for i in range(5000):
+for i in range(50):
     nombre = "Usuario" + str(contador)
     apellido = "Apellido" + str(contador)
     pais = valor_aleatorio(paises)
