@@ -34,7 +34,7 @@ id_vent INT PRIMARY KEY NOT NULL,
 id_usu INT /*FK*/ NOT NULL,
 cantidadprod_vent INT NOT NULL,
 descuento_vent FLOAT NOT NULL,
-preiototal_vent FLOAT NOT NULL
+preciototal_vent FLOAT NOT NULL
 );
 ALTER TABLE Ventas ADD CONSTRAINT fk_usu FOREIGN KEY (id_usu) REFERENCES Usuarios(id_usu);
 
