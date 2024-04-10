@@ -2,18 +2,18 @@ import random
 from datetime import datetime
 
 # Generar el INSERT con los 5000 registros
-insert = "INSERT INTO facturacion (dni_fact, metodo_pago_fact, direccion_fact, empresa_fact, fecha_fact, impuestos_fact, precio_total_fact, id_vent) VALUES\n"
+insert = "INSERT INTO Facturacion (dni_factura, metodo_pago_factura, direccion_factura, empresa_factura, fecha_factura, impuestos_factura, precio_total_factura, id_vent) VALUES\n"
 contador = 1
 
-for i in range(5000):
+for i in range(200):
     dni = ''.join(random.choices('0123456789', k=9))  # Generar un DNI aleatorio de 9 dígitos
     metodo_pago = random.choice(["Efectivo", "Tarjeta", "Transferencia"])
     direccion = "Calle" + str(random.randint(1, 100)) + ", " + str(random.randint(1, 100))
     empresa = random.randint(0, 1)  # 0 para no empresa, 1 para empresa
     fecha = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Fecha actual
     impuestos = round(random.uniform(0, 0.3), 2)  # Impuestos entre 0% y 30%
-    precio_total = round(random.uniform(10, 1000), 2)  # Precio total aleatorio entre 10 y 1000
-    id_venta = random.randint(1, 5000)  # Asumiendo que tienes 5000 ventas en tu tabla de ventas
+    precio_total = round(random.uniform(10, 500), 2)  # Precio total aleatorio entre 10 y 1000
+    id_venta = random.randint(1, 325)  # Asumiendo que tienes 5000 ventas en tu tabla de ventas
     
     # Agregar los valores al INSERT
     insert += f"('{dni}', '{metodo_pago}', '{direccion}', {empresa}, '{fecha}', {impuestos}, {precio_total}, {id_venta}),\n"
