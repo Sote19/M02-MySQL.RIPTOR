@@ -1,0 +1,21 @@
+import random
+
+# Generar el INSERT con los 5000 registros
+insert = "INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preiototal_vent) VALUES\n"
+contador = 1
+
+for i in range(5000):
+    id_usuario = random.randint(1, 5000)  # Asumiendo que tienes 5000 usuarios en tu tabla de usuarios
+    cantidad_productos = random.randint(1, 10)
+    descuento = round(random.uniform(0, 0.5), 2)  # Descuento entre 0% y 50%
+    precio_total = round(random.uniform(10, 1000), 2)  # Precio total aleatorio entre 10 y 1000
+    
+    # Agregar los valores al INSERT
+    insert += f"({id_usuario}, {cantidad_productos}, {descuento}, {precio_total}),\n"
+    contador += 1
+
+# Eliminar la coma extra al final y agregar punto y coma
+insert = insert[:-2] + ";"
+
+# Imprimir el INSERT generado
+print(insert)
