@@ -215,10 +215,17 @@ END;
 // DELIMITER ;
 /*-----------------------FIN TRIGGERS-------------------------------*/
 
+/*-----------------------QUERY'S-------------------------------*/
+
 /*-----------------------INICIO INDEX'S-------------------------------*/
 CREATE INDEX idx_Agil_core ON Productos(id_prod, Stock); /*Hemos pensado que era el mas basico, ya que agiliza la primary key del core también en stock, cuando el usuario compra, para saber si hay stock de x articulo, pensamos que es una busqueda que se realiza muchas veces*/
 CREATE INDEX idx_Mejora_relacion ON Vent_Prod (id_prod, id_vent); /*Mejora todo el trafico entre ventas y productos*/
 CREATE INDEX idx_categorias ON Categorias (nombre_cat); /*Para busquedas mas rapidas, entre productos y categorias*/
 /*-----------------------FIN INDEX'S-------------------------------*/
 
-/*500 REGISTROS PARA LA TABLA "USUARIOS"*/
+/*-----------------------1K INSERTS-------------------------------*/
+
+/*-----------------------5K INSERTS-------------------------------*/
+
+/*-----------------------10K INSERTS-------------------------------*/
+
