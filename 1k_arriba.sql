@@ -1,5 +1,5 @@
 /*USUARIOS*/
-INSERT INTO usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, direccion_usu, telf_usu, correo_usu, fechanac_usu, estilo_usu, contraseña_usu, ocupacion_usu) VALUES
+INSERT INTO Usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, direccion_usu, telf_usu, correo_usu, fechanac_usu, estilo_usu, contraseña_usu, ocupacion_usu) VALUES
 ('Usuario1', 'Apellido1', 'Ecuador', 'Madrid', 41692, 'Calle48, 44', 407081008754, 'usuario1@example.com', '1981-12-22', 'Ingeniero', 'contraseña1', 'Médico'),
 ('Usuario2', 'Apellido2', 'Colombia', 'Montevideo', 69172, 'Calle73, 9', 465947162055, 'usuario2@example.com', '1995-03-25', 'Programador', 'contraseña2', 'Diseñador'),
 ('Usuario3', 'Apellido3', 'Uruguay', 'Bogotá', 78213, 'Calle53, 59', 347502943148, 'usuario3@example.com', '1968-05-12', 'Médico', 'contraseña3', 'Profesor'),
@@ -50,9 +50,8 @@ INSERT INTO usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, d
 ('Usuario48', 'Apellido48', 'Colombia', 'La Paz', 20877, 'Calle82, 29', 178747714120, 'usuario48@example.com', '1986-08-16', 'Abogado', 'contraseña48', 'Estudiante'),
 ('Usuario49', 'Apellido49', 'España', 'Caracas', 50544, 'Calle80, 81', 280974214770, 'usuario49@example.com', '1952-01-05', 'Programador', 'contraseña49', 'Abogado'),
 ('Usuario50', 'Apellido50', 'Paraguay', 'Madrid', 87829, 'Calle87, 56', 769329597817, 'usuario50@example.com', '1950-07-15', 'Profesor', 'contraseña50', 'Abogado');
-
 /*VENTAS*/
-INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preciototal_vent) VALUES
+INSERT INTO Ventas (id_usu, cantidadprod_vent, descuento_vent, preciototal_vent) VALUES
 (30, 15, 0.37, 27.52),
 (46, 8, 0.0, 85.64),
 (31, 18, 0.17, 31.75),
@@ -104,7 +103,7 @@ INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preciototal_vent)
 (18, 10, 0.39, 274.36),
 (44, 8, 0.41, 228.46);
 /* FACTURACION */
-INSERT INTO facturacion (dni_factura, metodo_pago_factura, direccion_factura, empresa_factura, fecha_factura, impuestos_factura, precio_total_factura, id_venta) VALUES
+INSERT INTO Facturacion (dni_factura, metodo_pago_factura, direccion_factura, empresa_factura, fecha_factura, impuestos_factura, precio_total_factura, id_venta) VALUES
 ('010763758', 'Transferencia', 'Calle68, 62', 1, '1999-08-12 07:34:22', 0.25, 430.15, 8),
 ('145342410', 'Tarjeta', 'Calle93, 32', 0, '2010-02-25 18:12:45', 0.2, 68.85, 8),
 ('278481005', 'Transferencia', 'Calle22, 24', 1, '2005-07-30 09:15:37', 0.23, 198.75, 22),
@@ -156,7 +155,7 @@ INSERT INTO facturacion (dni_factura, metodo_pago_factura, direccion_factura, em
 ('882423379', 'Efectivo', 'Calle16, 58', 1, '2013-01-27 13:59:18', 0.16, 41.74, 4),
 ('643755407', 'Efectivo', 'Calle91, 62', 1, '2004-11-26 22:29:03', 0.0, 459.78, 9);
 /* DEVOLUCIONES */
-INSERT INTO devolucion (fecha_dev, motivo_dev, id_producto, id_venta) VALUES
+INSERT INTO Devolucion (fecha_dev, motivo_dev, id_producto, id_venta) VALUES
 ('2000-04-01 09:08:15', 'Motivo60', 372, 2),
 ('2019-05-07 20:15:45', 'Motivo6', 616, 18),
 ('2011-11-23 18:57:28', 'Motivo49', 115, 17),
