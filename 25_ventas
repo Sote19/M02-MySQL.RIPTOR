@@ -1,21 +1,51 @@
-import random
-
-# Generar el INSERT con los 5000 registros
-insert = "INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preiototal_vent) VALUES\n"
-contador = 1
-
-for i in range(5000):
-    id_usuario = random.randint(1, 5000)  # Asumiendo que tienes 5000 usuarios en tu tabla de usuarios
-    cantidad_productos = random.randint(1, 10)
-    descuento = round(random.uniform(0, 0.5), 2)  # Descuento entre 0% y 50%
-    precio_total = round(random.uniform(10, 1000), 2)  # Precio total aleatorio entre 10 y 1000
-    
-    # Agregar los valores al INSERT
-    insert += f"({id_usuario}, {cantidad_productos}, {descuento}, {precio_total}),\n"
-    contador += 1
-
-# Eliminar la coma extra al final y agregar punto y coma
-insert = insert[:-2] + ";"
-
-# Imprimir el INSERT generado
-print(insert)
+INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preiototal_vent) VALUES
+(30, 15, 0.37, 27.52),
+(46, 8, 0.0, 85.64),
+(31, 18, 0.17, 31.75),
+(20, 9, 0.17, 48.14),
+(17, 12, 0.32, 69.65),
+(50, 1, 0.06, 381.96),
+(50, 16, 0.33, 308.49),
+(4, 1, 0.1, 154.43),
+(41, 2, 0.35, 256.62),
+(42, 5, 0.45, 268.97),
+(22, 17, 0.28, 125.73),
+(1, 20, 0.44, 178.98),
+(47, 14, 0.49, 459.84),
+(46, 6, 0.23, 384.43),
+(9, 20, 0.19, 331.22),
+(6, 1, 0.38, 394.34),
+(13, 5, 0.38, 239.48),
+(14, 18, 0.03, 49.44),
+(49, 5, 0.13, 371.08),
+(22, 1, 0.19, 253.68),
+(2, 7, 0.14, 65.51),
+(14, 7, 0.36, 477.25),
+(26, 7, 0.23, 407.16),
+(5, 18, 0.27, 233.55),
+(23, 15, 0.12, 28.9),
+(7, 6, 0.26, 305.1),
+(12, 15, 0.03, 348.23),
+(21, 4, 0.21, 142.69),
+(15, 7, 0.29, 137.63),
+(16, 18, 0.24, 13.5),
+(49, 15, 0.08, 48.39),
+(40, 19, 0.36, 190.9),
+(32, 8, 0.13, 319.95),
+(29, 11, 0.38, 265.84),
+(24, 14, 0.3, 137.21),
+(22, 5, 0.2, 119.91),
+(12, 18, 0.39, 222.09),
+(39, 15, 0.41, 391.78),
+(10, 4, 0.37, 200.55),
+(8, 9, 0.22, 468.17),
+(47, 13, 0.3, 252.3),
+(28, 11, 0.44, 58.32),
+(50, 11, 0.11, 315.39),
+(46, 8, 0.49, 37.95),
+(8, 17, 0.22, 113.69),
+(46, 13, 0.23, 263.12),
+(26, 6, 0.06, 102.83),
+(39, 20, 0.35, 439.67),
+(18, 10, 0.39, 274.36),
+(44, 8, 0.41, 228.46);
