@@ -4,11 +4,12 @@ from datetime import datetime
 # Generar el INSERT con los 5000 registros
 insert = "INSERT INTO devolucion (fecha_dev, motivo_dev, id_prod, id_vent) VALUES\n"
 
-for i in range(5000):
-    fecha_dev = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Fecha actual
+for i in range(40):
+    fecha_dev = datetime(random.randint(2000, 2024), random.randint(1, 12), random.randint(1, 28),
+                     random.randint(0, 23), random.randint(0, 59), random.randint(0, 59)).strftime('%Y-%m-%d %H:%M:%S')
     motivo_dev = "Motivo" + str(random.randint(1, 100))  # Motivo aleatorio
-    id_prod = random.randint(1, 100)  # Asumiendo que tienes 100 productos en tu tabla de productos
-    id_venta = random.randint(1, 5000)  # Asumiendo que tienes 5000 ventas en tu tabla de ventas
+    id_prod = random.randint(1, 4000)  # Asumiendo que tienes 100 productos en tu tabla de productos
+    id_venta = random.randint(1, 100)  # Asumiendo que tienes 5000 ventas en tu tabla de ventas
     
     # Agregar los valores al INSERT
     insert += f"('{fecha_dev}', '{motivo_dev}', {id_prod}, {id_venta}),\n"
