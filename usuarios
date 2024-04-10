@@ -10,10 +10,10 @@ def valor_aleatorio(lista):
     return random.choice(lista)
 
 # Generar el INSERT con los 5000 registros
-insert = "INSERT INTO usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, direccion_usu, telf_usu, correo_usu, fechanac_usu, estilo_usu, contraseña_usu, ocupacion_usu) VALUES\n"
+insert = "INSERT INTO Usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, direccion_usu, telf_usu, correo_usu, fechanac_usu, estilo_usu, contraseña_usu, ocupacion_usu) VALUES\n"
 contador = 1
 
-for i in range(50):
+for i in range(400):
     nombre = "Usuario" + str(contador)
     apellido = "Apellido" + str(contador)
     pais = valor_aleatorio(paises)
