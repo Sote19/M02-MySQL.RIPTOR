@@ -1,0 +1,38 @@
+import random
+
+# Lista de valores para generar datos aleatorios
+paises = ["Argentina", "España", "México", "Colombia", "Chile", "Perú", "Ecuador", "Venezuela", "Bolivia", "Paraguay", "Uruguay"]
+ciudades = ["Buenos Aires", "Madrid", "Ciudad de México", "Bogotá", "Santiago", "Lima", "Quito", "Caracas", "La Paz", "Asunción", "Montevideo"]
+ocupaciones = ["Estudiante", "Profesor", "Ingeniero", "Médico", "Abogado", "Diseñador", "Programador", "Empresario"]
+
+# Función para generar un valor aleatorio
+def valor_aleatorio(lista):
+    return random.choice(lista)
+
+# Generar el INSERT con los 5000 registros
+insert = "INSERT INTO usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, direccion_usu, telf_usu, correo_usu, fechanac_usu, estilo_usu, contraseña_usu, ocupacion_usu) VALUES\n"
+contador = 1
+
+for i in range(5000):
+    nombre = "Usuario" + str(contador)
+    apellido = "Apellido" + str(contador)
+    pais = valor_aleatorio(paises)
+    ciudad = valor_aleatorio(ciudades)
+    cp = random.randint(10000, 99999)
+    direccion = "Calle" + str(random.randint(1, 100)) + ", " + str(random.randint(1, 100))
+    telefono = random.randint(100000000000, 999999999999)
+    correo = "usuario" + str(contador) + "@example.com"
+    fechanac = f"{random.randint(1950, 2005)}-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
+    estilo = valor_aleatorio(ocupaciones)
+    contraseña = "contraseña" + str(contador)
+    ocupacion = valor_aleatorio(ocupaciones)
+    
+    # Agregar los valores al INSERT
+    insert += f"('{nombre}', '{apellido}', '{pais}', '{ciudad}', {cp}, '{direccion}', {telefono}, '{correo}', '{fechanac}', '{estilo}', '{contraseña}', '{ocupacion}'),\n"
+    contador += 1
+
+# Eliminar la coma extra al final y agregar punto y coma
+insert = insert[:-2] + ";"
+
+# Imprimir el INSERT generado
+print(insert)
