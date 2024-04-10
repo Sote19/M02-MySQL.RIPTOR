@@ -1,0 +1,110 @@
+1. Consulta para obtener el total de ventas por país de usuario:
+
+SELECT u.pais_usu, SUM(v.preiototal_vent) AS Total_Ventas
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu
+GROUP BY u.pais_usu;
+2. Consulta que muestra los productos más vendidos por categoría:
+
+SELECT p.categoria, p.nombre, COUNT(d.id_prod) AS Unidades_Vendidas
+FROM Productos p
+JOIN Devolucion d ON p.id_prod = d.id_prod
+GROUP BY p.categoria, p.nombre
+ORDER BY Unidades_Vendidas DESC, p.categoria;
+3. Consulta para listar los proveedores y la cantidad de productos que suministran:
+
+SELECT prov.nombre_prov, COUNT(p.id_prod) AS Productos_Suministrados
+FROM Proveedor prov
+JOIN Productos p ON prov.id_prod = p.id_prod
+GROUP BY prov.nombre_prov
+ORDER BY Productos_Suministrados DESC;
+4. Consulta que muestra los productos con mayor número de devoluciones:
+
+SELECT p.nombre, p.marca, COUNT(d.id_dev) AS Devoluciones
+FROM Productos p
+JOIN Devolucion d ON p.id_prod = d.id_prod
+GROUP BY p.nombre, p.marca
+ORDER BY Devoluciones DESC
+LIMIT 10;
+5. Consulta para obtener el promedio de descuento aplicado en las ventas por cada ciudad de usuario:
+
+SELECT u.ciudad_usu, AVG(v.descuento_vent) AS Descuento_Promedio
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu
+GROUP BY u.ciudad_usu;
+6. Consulta que muestra las ventas totales agrupadas por método de pago:
+
+SELECT f.metodo_pago_fact, SUM(f.precio_total_fact) AS Total_Ventas
+FROM Facturacion f
+GROUP BY f.metodo_pago_fact;
+7. Consulta para listar usuarios que han realizado compras en un rango de fechas específico:
+
+SELECT u.nombre_usu, u.apellidos_usu, COUNT(v.id_vent) AS Num_Compras
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu
+WHERE v.fecha BETWEEN '2023-01-01' AND '2023-12-31'
+GROUP BY u.nombre_usu, u.apellidos_usu
+ORDER BY Num_Compras DESC;
+8. Consulta para identificar los productos sin ventas asociadas:
+
+SELECT p.nombre, p.categoria
+FROM Productos p
+LEFT JOIN Devolucion d ON p.id_prod = d.id_prod
+WHERE d.id_dev IS NULL
+GROUP BY p.nombre, p.categoria;
+9. Consulta que muestra la cantidad total de stock por materiales de producto:
+
+SELECT p.materiales, SUM(p.stock) AS Total_Stock
+FROM Productos p
+GROUP BY p.materiales;
+10. Consulta para encontrar las devoluciones realizadas en los últimos 30 días con su motivo:
+
+SELECT p.nombre AS Producto, d.fecha_dev, d.motivo_dev
+FROM Devolucion d
+JOIN Productos p ON d.id_prod = p.id_prod
+WHERE d.fecha_dev BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()
+ORDER BY d.fecha_dev DESC;
+
+11. Consulta para obtener los usuarios que han hecho compras por encima del promedio de ventas:
+
+WITH AvgSales AS (
+    SELECT AVG(preiototal_vent) AS PromedioVenta
+    FROM Ventas
+)
+SELECT u.nombre_usu, u.apellidos_usu, v.preiototal_vent
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu, AvgSales
+WHERE v.preiototal_vent > AvgSales.PromedioVenta
+ORDER BY v.preiototal_vent DESC;
+12. Consulta que muestra la evolución mensual de las ventas totales:
+
+SELECT YEAR(fecha_fact) AS Año, MONTH(fecha_fact) AS Mes, SUM(precio_total_fact) AS Total_Ventas
+FROM Facturacion
+GROUP BY YEAR(fecha_fact), MONTH(fecha_fact)
+ORDER BY Año, Mes;
+13. Consulta para listar productos con devolución donde el motivo sea defectuoso y hayan sido adquiridos en los últimos 6 meses:
+
+SELECT p.nombre, p.color, p.marca, COUNT(d.id_dev) AS Num_Devoluciones
+FROM Devolucion d
+JOIN Productos p ON d.id_prod = p.id_prod
+JOIN Ventas v ON d.id_vent = v.id_vent
+WHERE d.motivo_dev = 'Defectuoso' AND v.fecha BETWEEN CURDATE() - INTERVAL 6 MONTH AND CURDATE()
+GROUP BY p.nombre, p.color, p.marca
+ORDER BY Num_Devoluciones DESC;
+14. Consulta para obtener el ranking de categorías de productos por ingresos generados:
+
+SELECT p.categoria, SUM(f.precio_total_fact) AS Ingresos
+FROM Facturacion f
+JOIN Ventas v ON f.id_vent = v.id_vent
+JOIN Productos p ON v.id_usu = p.id_prod
+GROUP BY p.categoria
+ORDER BY Ingresos DESC;
+15. Consulta que muestra el total de ventas y el número de productos vendidos por cada proveedor:
+
+SELECT prov.nombre_prov, COUNT(distinct v.id_vent) AS Total_Ventas, SUM(v.cantidadprod_vent) AS Productos_Vendidos
+FROM Proveedor prov
+JOIN Productos p ON prov.id_prod = p.id_prod
+JOIN Devolucion d ON p.id_prod = d.id_prod
+JOIN Ventas v ON d.id_vent = v.id_vent
+GROUP BY prov.nombre_prov
+ORDER BY Total_Ventas DESC, Productos_Vendidos DESC;
