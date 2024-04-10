@@ -52,7 +52,7 @@ INSERT INTO usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, d
 ('Usuario50', 'Apellido50', 'Paraguay', 'Madrid', 87829, 'Calle87, 56', 769329597817, 'usuario50@example.com', '1950-07-15', 'Profesor', 'contraseña50', 'Abogado');
 
 /*VENTAS*/
-INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preiototal_vent) VALUES
+INSERT INTO ventas (id_usu, cantidadprod_vent, descuento_vent, preciototal_vent) VALUES
 (30, 15, 0.37, 27.52),
 (46, 8, 0.0, 85.64),
 (31, 18, 0.17, 31.75),
