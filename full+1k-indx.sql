@@ -181,18 +181,12 @@ BEGIN
 END// 
 DELIMITER ;
 
-/*TRIGGER*/
-USE Riptor;
-DELIMITER // 
-CREATE TRIGGER trig_mensaje_devolucion
-AFTER INSERT ON Devolucion
-FOR EACH ROW
-BEGIN
-    SIGNAL SQLSTATE '54000' SET MESSAGE_TEXT = 'La devolución ha sido registrada correctamente';
-END// 
-DELIMITER ;
 /*-----------------------FIN TRIGGERS-------------------------------*/
 /*-----------------------INICIO INDEX'S-------------------------------*/
+CREATE INDEX idx_Agil_core ON Productos(id_prod, Stock); /*Hemos pensado que era el mas basico, ya que agiliza la primary key del core también en stock, cuando el usuario compra, para saber si hay stock de x articulo, pensamos que es una busqueda que se realiza muchas veces*/
+CREATE INDEX idx_Mejora_relacion ON Vent_Prod (id_prod, id_vent); /*Mejora todo el trafico entre ventas y productos*/
+CREATE INDEX idx_categorias ON Categorias (nombre_cat); /*Para busquedas mas rapidas, entre productos y categorias*/
+
 /*-----------------------FIN INDEX'S-------------------------------*/
 
 /*INICIO INSERTS*/
@@ -2312,6 +2306,9 @@ INSERT INTO Usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, d
 ('Usuario49', 'Apellido49', 'España', 'Caracas', 50544, 'Calle80, 81', 280974214770, 'usuario49@example.com', '1952-01-05', 'Programador', 'contraseña49', 'Abogado'),
 ('Usuario50', 'Apellido50', 'Paraguay', 'Madrid', 87829, 'Calle87, 56', 769329597817, 'usuario50@example.com', '1950-07-15', 'Profesor', 'contraseña50', 'Abogado');
 /*VENTAS*/
+
+Select * from devolucion;
+
 INSERT INTO Ventas (id_usu, cantidadprod_vent, descuento_vent, preciototal_vent) VALUES
 (30, 15, 0.37, 27.52),
 (46, 8, 0.0, 85.64),
@@ -2416,6 +2413,8 @@ INSERT INTO Facturacion (dni_fact, metodo_pago_fact, direccion_fact, empresa_fac
 ('882423379', 'Efectivo', 'Calle16, 58', 1, '2013-01-27 13:59:18', 0.16, 41.74, 4),
 ('643755407', 'Efectivo', 'Calle91, 62', 1, '2004-11-26 22:29:03', 0.0, 459.78, 9);
 /* DEVOLUCIONES */
+select * from devolucion;
+
 INSERT INTO Devolucion (fecha_dev, motivo_dev, id_producto, id_vent) VALUES
 ('2000-04-01 09:08:15', 'Motivo60', 372, 2),
 ('2019-05-07 20:15:45', 'Motivo6', 616, 18),
