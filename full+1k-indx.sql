@@ -183,10 +183,9 @@ DELIMITER ;
 
 /*-----------------------FIN TRIGGERS-------------------------------*/
 /*-----------------------INICIO INDEX'S-------------------------------*/
-CREATE INDEX idx_Agil_core ON Productos(id_prod, Stock); /*Hemos pensado que era el mas basico, ya que agiliza la primary key del core también en stock, cuando el usuario compra, para saber si hay stock de x articulo, pensamos que es una busqueda que se realiza muchas veces*/
-CREATE INDEX idx_Mejora_relacion ON Vent_Prod (id_prod, id_vent); /*Mejora todo el trafico entre ventas y productos*/
+CREATE INDEX idx_Agil_core ON Productos(id_producto, Stock); /*Hemos pensado que era el mas basico, ya que agiliza la primary key del core también en stock, cuando el usuario compra, para saber si hay stock de x articulo, pensamos que es una busqueda que se realiza muchas veces*/
+CREATE INDEX idx_Mejora_relacion ON Vent_Prod (id_producto, id_vent); /*Mejora todo el trafico entre ventas y productos*/
 CREATE INDEX idx_categorias ON Categorias (nombre_cat); /*Para busquedas mas rapidas, entre productos y categorias*/
-
 /*-----------------------FIN INDEX'S-------------------------------*/
 
 /*INICIO INSERTS*/
@@ -2307,8 +2306,6 @@ INSERT INTO Usuarios (nombre_usu, apellidos_usu, pais_usu, ciudad_usu, cp_usu, d
 ('Usuario50', 'Apellido50', 'Paraguay', 'Madrid', 87829, 'Calle87, 56', 769329597817, 'usuario50@example.com', '1950-07-15', 'Profesor', 'contraseña50', 'Abogado');
 /*VENTAS*/
 
-Select * from devolucion;
-
 INSERT INTO Ventas (id_usu, cantidadprod_vent, descuento_vent, preciototal_vent) VALUES
 (30, 15, 0.37, 27.52),
 (46, 8, 0.0, 85.64),
@@ -2413,8 +2410,6 @@ INSERT INTO Facturacion (dni_fact, metodo_pago_fact, direccion_fact, empresa_fac
 ('882423379', 'Efectivo', 'Calle16, 58', 1, '2013-01-27 13:59:18', 0.16, 41.74, 4),
 ('643755407', 'Efectivo', 'Calle91, 62', 1, '2004-11-26 22:29:03', 0.0, 459.78, 9);
 /* DEVOLUCIONES */
-select * from devolucion;
-
 INSERT INTO Devolucion (fecha_dev, motivo_dev, id_producto, id_vent) VALUES
 ('2000-04-01 09:08:15', 'Motivo60', 372, 2),
 ('2019-05-07 20:15:45', 'Motivo6', 616, 18),
@@ -2426,3 +2421,55 @@ INSERT INTO Devolucion (fecha_dev, motivo_dev, id_producto, id_vent) VALUES
 ('2008-09-28 11:27:07', 'Motivo34', 312, 4),
 ('2014-03-06 22:03:05', 'Motivo6', 286, 5),
 ('2007-12-24 06:59:39', 'Motivo84', 195, 22);
+
+
+/*------------------CONSULTAS---------------------*/
+SELECT u.pais_usu, SUM(v.preciototal_vent) AS Total_Ventas
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu
+GROUP BY u.pais_usu;
+
+SELECT p.nombre, p.marca, COUNT(d.id_dev) AS Devoluciones
+FROM Productos p
+JOIN Devolucion d ON p.id_producto = d.id_producto
+GROUP BY p.nombre, p.marca
+ORDER BY Devoluciones DESC
+LIMIT 10;
+
+SELECT u.ciudad_usu, AVG(v.descuento_vent) AS Descuento_Promedio
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu
+GROUP BY u.ciudad_usu;
+
+SELECT f.metodo_pago_fact, SUM(f.precio_total_fact) AS Total_Ventas
+FROM Facturacion f
+GROUP BY f.metodo_pago_fact;
+
+
+SELECT p.materiales, SUM(p.stock) AS Total_Stock
+FROM Productos p
+GROUP BY p.materiales;
+
+
+SELECT p.nombre AS Producto, d.fecha_dev, d.motivo_dev
+FROM Devolucion d
+JOIN Productos p ON d.id_producto = p.id_producto
+WHERE d.fecha_dev BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()
+ORDER BY d.fecha_dev DESC;
+
+
+WITH AvgSales AS (
+    SELECT AVG(preciototal_vent) AS PromedioVenta
+    FROM Ventas
+)
+SELECT u.nombre_usu, u.apellidos_usu, v.preciototal_vent
+FROM Usuarios u
+JOIN Ventas v ON u.id_usu = v.id_usu, AvgSales
+WHERE v.preciototal_vent > AvgSales.PromedioVenta
+ORDER BY v.preciototal_vent DESC;
+
+
+SELECT YEAR(fecha_fact) AS Año, MONTH(fecha_fact) AS Mes, SUM(precio_total_fact) AS Total_Ventas
+FROM Facturacion
+GROUP BY YEAR(fecha_fact), MONTH(fecha_fact)
+ORDER BY Año, Mes;
